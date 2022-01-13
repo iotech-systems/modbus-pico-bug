@@ -6,6 +6,10 @@ __pycache__/
 # C extensions
 *.so
 
+# editor stuff
+.idea/
+
+
 # Distribution / packaging
 .Python
 build/
@@ -122,3 +126,4 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+

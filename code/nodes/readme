@@ -1,0 +1,11 @@
+
+
+   multi line comments
+   @ -> device address; @44
+   :: -> inherits from a /models/model file
+
+   @44::/models/orno504.info
+
+   ^ above is meter/node with modbus address 44 registers that will read by the sytem
+   are defined in a file /models/model ... file
+

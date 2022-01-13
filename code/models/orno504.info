@@ -1,0 +1,8 @@
+# COMM:= buad/8n1/timeout/char_timeout
+COMM:= 9600/8N1/20/8
+ADDRESS_REG:= 0x0002:1:int:0:ModbusAddress
+# ====== REGISTERS ======
+# --- address:size:type:decpnt:label ---
+0x000E:2:flt:2:L1_Voltage
+0x0010:2:flt:2:L2_Voltage
+0x0012:2:flt:2:L3_Voltage

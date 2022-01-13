@@ -1,0 +1,4 @@
+
+
+class TxTimeoutException(Exception):
+   """"""
