@@ -147,6 +147,15 @@ class radioMsg(object):
       radioMsg.PONG_MSG[5] = _nid
       return radioMsg.PONG_MSG
 
+   @staticmethod
+   def is_pong_good(pingTo: int, pingFr: int, pong: bytearray) -> bool:
+      bh = (radioMsgLib.PONG_HEAD == pong[:3])
+      be = (radioMsgLib.PONG_TAIL == pong[-2:])
+      _nid: chr = pong[3]
+      _fid: chr = pong[5]
+      tofrom: bool = (pingTo == _fid) and (pingFr == _nid)
+      return bh and be and tofrom
+
    def __init__(self, buff: bytearray):
       self.buff = buff
       self.to_id = 0
@@ -164,7 +173,7 @@ class radioMsg(object):
    def is_for_this_node(self, nodeID: int):
       barr = self.__sub_buff__(msgFlds.TO_ID)
       if not self.__test_vts__(barr):
-         raise ValueError(strs.BAD_VTS)
+         raise ValueError("BAD_VTs")
       barr = self.__strip_vts__(barr)
       nid = struct.unpack(">B", barr)[0]
       return nid == nodeID
