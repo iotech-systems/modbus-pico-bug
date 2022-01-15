@@ -6,7 +6,7 @@
 from machine import UART
 from system.shared.strings import strs
 from radiolib import radioMsg
-from radiolib import msgTypes
+from radiolib.radioMsg import msgTypes
 from system.shared.rtunodes import rtunodes
 from system.shared.rtunode import rtunode
 

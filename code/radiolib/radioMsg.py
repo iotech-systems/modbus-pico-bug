@@ -1,6 +1,5 @@
 
 import struct
-from system.shared.strings import strs
 from radiolib.radioMsgLib import radioMsgLib
 
 

@@ -3,7 +3,7 @@ import uasyncio, time, math
 from machine import UART
 from system.config import CONFIG
 from system.shared import __GBL__
-from radiolib import radioMsg
+from radiolib.radioMsg import radioMsg
 from radiolib.radioMsgLib import errorEvents
 from system.cpuCore1.radioCmds import radioCmds
 from system.shared.rtunode import rtunode
@@ -63,7 +63,7 @@ async def radioBot(**kwargs):
          __GBL__.TASK_LORA_DTS = time.ticks_ms()
          await uasyncio.sleep_ms(CONFIG.RADIO_BOT_DELAY_MS)
       except Exception as e:
-         print(f"\n\tmodbusbot exception: {e}\n")
+         print(f"\n\tradiobot exception: {e}\n")
    # -- end loop --
 
 
