@@ -15,7 +15,6 @@ class core0(cpuCore):
       self.args = args
       while True:
          if self.__run__():
-            # self.__push_run_state__(self.led)
             time.sleep(16.0)
          else:
             pass
@@ -23,6 +22,7 @@ class core0(cpuCore):
    def __run__(self) -> bool:
       print("core0.__run__")
       try:
+         print(f"\n - - -\n cpu0: localtime: {time.localtime()}\n - - -")
          print(f"\n\t--- gc info ---\n\tfree: {gc.mem_free()}\n\talloc: {gc.mem_alloc()}\n\t--- end gc info ---")
          gc.collect()
          print(f"\n\t--- gc info ---\n\tfree: {gc.mem_free()}\n\talloc: {gc.mem_alloc()}\n\t--- end gc info ---")

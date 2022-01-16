@@ -21,16 +21,6 @@ MSGIN: bytearray = bytearray(64)
 CHARACTER_DELAY = 0
 
 
-"""
-def ontimer(t):
-   print(t)
-   global LOOP_COUNTER
-   LOOP_COUNTER += 1
-   __GBL__.__UART_RD__.write(f"-- ontimer: {LOOP_COUNTER} --\n".encode())
-tim: Timer = Timer(period=8000, mode=Timer.PERIODIC, callback=ontimer)
-"""
-
-
 async def radioBot(**kwargs):
    hd = "\n\t[ radio head ]"
    print(hd)
@@ -74,16 +64,16 @@ def __run__(msgin: bytearray) -> int:
    if radioMsg.is_ping(msgin):
       if radioMsg.is_ping_for_this_node(msgin, CONFIG.radioID):
          pong = radioMsg.pong_msg(msgin)
-         print(f"\n\tsent pong: {pong}\n")
+         print(f"\n\tPONG: {pong}\n")
          __send_barr__(pong)
          return 0
    # -- run --
    radio_msg: radioMsg = radioMsg(msgin)
    if not radio_msg.is_valid_head_tail():
-      # this error has to be unanswered;
+      # must ignore
       return 0
    if not radio_msg.is_for_this_node(CONFIG.radioID):
-      # ends here;
+      print("[msg is not for this node]")
       return 0
    # -- msg is for this node --
    if not radio_msg.unpack():
@@ -91,16 +81,16 @@ def __run__(msgin: bytearray) -> int:
       barr = radioMsg.error_event_msg(CONFIG.radioID, errorEvents.UNPACK_ERROR)
       __send_str__(barr)
       return 0
-   # -- keep going --
+   # -- send back ack msg --
    ack: bytearray = radio_msg.ack_msg()
    print(f"sending ack: {ack}")
    __send_barr__(ack)
-   time.sleep_ms(200)
+   time.sleep_ms(CONFIG.POST_ACK_DELAY_MS)
    # -- will need to assume as time limits here --
    radio_cmds: radioCmds = radioCmds(__GBL__.__UART_RD__, radio_msg)
    rbuff = radio_cmds.execute(nodes=NODES)
    if rbuff is not None:
-      print(f"sending response: {rbuff}")
+      print(f"sending resp: {rbuff}")
       arr = radio_msg.response_msg(rbuff)
       print(arr)
       __send_barr__(arr)

@@ -2,13 +2,14 @@
 """
    number of cmds that run on rpi pico
 """
-
-from machine import UART
+import time
+from machine import UART, RTC
 from system.shared.strings import strs
 from radiolib import radioMsg
 from radiolib.radioMsg import msgTypes
 from system.shared.rtunodes import rtunodes
 from system.shared.rtunode import rtunode
+from system.cpuCore1.cmdSetDatetime import cmdSetDatetime
 
 
 class radioCmds(object):
@@ -33,22 +34,23 @@ class radioCmds(object):
          # -- return --
          return None
       except Exception as e:
-         print(f"execute exception: {e}")
+         print(f"exec excep: {e}")
 
    def __get_node_registers(self, args, nodes: rtunodes) -> bytearray:
-      args: str = args.decode("utf-8")
+      args: str = args.decode(strs.UTF8)
       print(f"__get_node_registers: {args}")
       node: rtunode = nodes.get_node(args)
       return node.report()
 
    def __set_datetime(self, args):
-      # 2022 01 22 T 09 22 44
-      print(f"__set_datetime: {args}")
-      d, t = args.split("T")
-      """y, mo, dd = d[:4], d[4:6], d[6:8]
-      h, mn, s = d[:2], d[2:4], d[4:6]
-      rtc: RTC = RTC((y, mo, dd, h, mn, s))
-      print(rtc.datetime())"""
+      try:
+         # b'20220116T003326UTC'
+         print(f"__set_datetime: {args}")
+         cmd: cmdSetDatetime = cmdSetDatetime(args)
+         cmd.do()
+         print(f"\t-- datetime set\n\t{time.localtime()}")
+      except Exception as e:
+         print(f"__set_datetime: {e}")
 
    def __add_node_model(self, args):
       pass

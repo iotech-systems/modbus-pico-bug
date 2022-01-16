@@ -9,6 +9,7 @@ class strs:
    BAD_RS_CHECK = "BAD_RS_CHECK"
    BAD_DST_ADR = "BadDestinationAddress"
    BAD_PAYLOAD = "BadPayload"
+   BAD_TZ = "BAD_TIMEZONE"
    BAD_VTS = "BAD_OR_MISSING_VTS"
    INFO_00 = "msg is not for this node"
    INFO_01 = "msg had bad envelope"
@@ -16,3 +17,4 @@ class strs:
    CMD_EXE_DONE = "radio cmd executed"
    SYMBOL_AT = "@"
    KW_NODES = "nodes"
+   UTF8 = "utf-8"

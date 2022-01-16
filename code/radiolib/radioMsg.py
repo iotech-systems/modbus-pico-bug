@@ -156,6 +156,12 @@ class radioMsg(object):
       tofrom: bool = (pingTo == _fid) and (pingFr == _nid)
       return bh and be and tofrom
 
+   @staticmethod
+   def is_good_ack(targetNodeID: int, msgID: int, ack: bytearray):
+      nid = ack[5]
+      mid: int = struct.unpack(">I", ack[7:11])[0]
+      return targetNodeID == nid and msgID == mid
+
    def __init__(self, buff: bytearray):
       self.buff = buff
       self.to_id = 0
@@ -176,7 +182,7 @@ class radioMsg(object):
          raise ValueError("BAD_VTs")
       barr = self.__strip_vts__(barr)
       nid = struct.unpack(">B", barr)[0]
-      return nid == nodeID
+      return nid in (nodeID, 0xff)
 
    def unpack(self):
       try:

@@ -26,12 +26,15 @@ class config(object):
       self.MODBUS_BOT_DELAY_MS = 32000
       self.MODBUS_UART_ID = 0
       self.Baud9600 = 9600
+      self.POST_ACK_DELAY_MS = 320
       # -- monitor timers --
       self.CORE0_MON_TIMER: int = (self.KILO * 8)
       self.CORE1_MON_TIMER: int = (self.KILO * 8)
       # -- logs --
       self.RUNTIME_LOG_SIZE_KB = 200
       self.RUNTIME_LOG_FILE = "/logs/runtime.log"
+      self.TZs = ("UTC", "EST", "CST", "MST", "CET")
+      self.SYS_TZ = None
 
    def __set_lora_id__(self):
       try:
