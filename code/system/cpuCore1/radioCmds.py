@@ -38,9 +38,12 @@ class radioCmds(object):
 
    def __get_node_registers(self, args, nodes: rtunodes) -> bytearray:
       args: str = args.decode(strs.UTF8)
-      print(f"__get_node_registers: {args}")
       node: rtunode = nodes.get_node(args)
-      return node.report()
+      if node is None:
+         rprt = bytearray(f"{args}#ModbusNodeNotFound".encode())
+      else:
+         rprt = node.report()
+      return rprt
 
    def __set_datetime(self, args):
       try:

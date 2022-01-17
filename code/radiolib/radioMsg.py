@@ -157,6 +157,12 @@ class radioMsg(object):
       return bh and be and tofrom
 
    @staticmethod
+   def test_vts(buff: bytearray):
+      vts = buff[:1]
+      vte = buff[-1:]
+      return vts == radioMsg.MSG_VT and vte == radioMsg.MSG_VT
+
+   @staticmethod
    def is_good_ack(targetNodeID: int, msgID: int, ack: bytearray):
       nid = ack[5]
       mid: int = struct.unpack(">I", ack[7:11])[0]

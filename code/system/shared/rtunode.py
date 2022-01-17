@@ -41,7 +41,7 @@ class rtunode(object):
 
    def update_last_scanned(self):
       y, mo, d, h, mn, s, _, _ = time.localtime()
-      self.last_scanned = f"{y}|{mo}|{d}T{h}|{mn}|{s}"
+      self.last_scanned = (f"%s%02d%02dT%02d%02d%02d" % (y, mo, d, h, mn, s))
 
    def report(self) -> bytearray:
       rep: bytearray = bytearray()
