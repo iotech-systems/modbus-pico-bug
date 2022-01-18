@@ -26,5 +26,5 @@ class reportBuffer(object):
 
    def load_from_bytes(self, arr: bytearray):
       self.buff_sz: int = arr[0]
-      self.err = arr[:6]
-      self.barr = arr[6:]
+      self.err = arr[2:8]
+      self.barr = arr[8:]
