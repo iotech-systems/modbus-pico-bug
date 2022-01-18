@@ -35,9 +35,9 @@ class reportBuffer(object):
 
    @property
    def error_msg(self) -> str:
-      return self.barr[11:].decode()
+      return self.barr[9:].decode()
 
    @property
    def modbus_node(self) -> str:
-      return self.barr[8:11].decode()
+      return self.barr[7:9].decode()
 
