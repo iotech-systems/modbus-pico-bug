@@ -30,16 +30,18 @@ class reportBuffer(object):
       self.err = arr[2:8]
       self.barr = arr[8:]
 
+   def report_size(self):
+      return self.buff_sz
+
    @property
    def error_code(self) -> int:
       return int(self.err.decode().replace("#", "", 2))
 
    @property
    def error_msg(self) -> str:
-      b = self.barr[3:].decode()
+      b = self.barr[4:].decode()
       return b
 
    @property
-   def modbus_node(self) -> str:
-      print(self.barr)
-      return self.barr[7:9].decode()
+   def modbus_node_atid(self) -> str:
+      return self.barr[0:4].decode()
