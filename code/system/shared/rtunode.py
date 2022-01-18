@@ -48,6 +48,7 @@ class rtunode(object):
       id = f"@{self.modbus_node_address}"
       rep.extend(id.encode())
       rep.extend(f"@{self.last_scanned}".encode())
+      # -- for each memblock --
       for mb in self.registers:
          mb: memblock = mb
          rep.append(rtunode.RS)

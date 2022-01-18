@@ -5,7 +5,7 @@
 import time
 from machine import UART, RTC
 from system.shared.strings import strs
-from radiolib import radioMsg
+from radiolib import radioMsg, reportBuffer
 from radiolib.radioMsg import msgTypes
 from system.shared.rtunodes import rtunodes
 from system.shared.rtunode import rtunode
@@ -26,7 +26,9 @@ class radioCmds(object):
             nodes: rtunodes = None
             if strs.KW_NODES in kwargs:
                nodes: rtunodes = kwargs[strs.KW_NODES]
-            return self.__get_node_registers(argbuff, nodes)
+            # -- return --
+            rb: reportBuffer = self.__get_node_registers(argbuff, nodes)
+            return rb.to_bytearray()
          elif cmd == msgTypes.SET_DATETIME:
             self.__set_datetime(argbuff)
          else:
@@ -36,14 +38,17 @@ class radioCmds(object):
       except Exception as e:
          print(f"exec excep: {e}")
 
-   def __get_node_registers(self, args, nodes: rtunodes) -> bytearray:
+   def __get_node_registers(self, args, nodes: rtunodes) -> reportBuffer:
       args: str = args.decode(strs.UTF8)
       node: rtunode = nodes.get_node(args)
+      rptbuff: reportBuffer = reportBuffer.reportBuffer()
       if node is None:
-         rprt = bytearray(f"{args}#ModbusNodeNotFound".encode())
+         rptbuff.extend(bytearray(f"{args}#ModbusNodeNotFound".encode()))
+         rptbuff.set_error(0x00)
       else:
-         rprt = node.report()
-      return rprt
+         rptbuff.extend(node.report())
+         rptbuff.set_error(0x00)
+      return rptbuff
 
    def __set_datetime(self, args):
       try:

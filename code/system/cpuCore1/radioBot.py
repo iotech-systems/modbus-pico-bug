@@ -64,16 +64,13 @@ def __run__(msgin: bytearray) -> int:
    if radioMsg.is_ping(msgin):
       if radioMsg.is_ping_for_this_node(msgin, CONFIG.radioID):
          pong = radioMsg.pong_msg(msgin)
-         print(f"\n\tPONG: {pong}\n")
          __send_barr__(pong)
          return 0
    # -- run --
    radio_msg: radioMsg = radioMsg(msgin)
    if not radio_msg.is_valid_head_tail():
-      # must ignore
       return 0
    if not radio_msg.is_for_this_node(CONFIG.radioID):
-      print("[msg is not for this node]")
       return 0
    # -- msg is for this node --
    if not radio_msg.unpack():
@@ -83,29 +80,24 @@ def __run__(msgin: bytearray) -> int:
       return 0
    # -- send back ack msg --
    ack: bytearray = radio_msg.ack_msg()
-   print(f"sending ack: {ack}")
    __send_barr__(ack)
    time.sleep_ms(CONFIG.POST_ACK_DELAY_MS)
    # -- will need to assume as time limits here --
    radio_cmds: radioCmds = radioCmds(__GBL__.__UART_RD__, radio_msg)
    rbuff = radio_cmds.execute(nodes=NODES)
    if rbuff is not None:
-      print(f"sending resp: {rbuff}")
       arr = radio_msg.response_msg(rbuff)
-      print(arr)
       __send_barr__(arr)
    return 0
 
 
 def __send_all_registers__():
-   # -- do --
    for node in NODES.items:
       node: rtunode = node
       print(f"\n\tnode: @{node.modbus_id}")
       for reg in node.registers:
          reg: memblock = reg
          __send_str__(reg.dump())
-   # -- end do --
 
 
 def __is_msg_in_tx_buffer__():
