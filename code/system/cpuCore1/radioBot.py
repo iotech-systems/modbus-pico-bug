@@ -74,7 +74,7 @@ def __run__(msgin: bytearray) -> int:
       return 0
    # -- msg is for this node --
    if not radio_msg.unpack():
-      # -- broadcast error event as unable to unpack ... --"
+      # -- broadcast error event as unable to unpack --
       barr = radioMsg.error_event_msg(CONFIG.radioID, errorEvents.UNPACK_ERROR)
       __send_str__(barr)
       return 0

@@ -1,4 +1,10 @@
 
+class radioErrors(object):
+
+   ERROR_OK = 0
+   REPORT_ERROR = 1001
+
+
 class errorEvents(object):
 
    UNPACK_ERROR = 13

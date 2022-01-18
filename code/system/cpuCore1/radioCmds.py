@@ -7,6 +7,7 @@ from machine import UART, RTC
 from system.shared.strings import strs
 from radiolib import radioMsg, reportBuffer
 from radiolib.radioMsg import msgTypes
+from radiolib.radioMsgLib import radioErrors
 from system.shared.rtunodes import rtunodes
 from system.shared.rtunode import rtunode
 from system.cpuCore1.cmdSetDatetime import cmdSetDatetime
@@ -44,10 +45,10 @@ class radioCmds(object):
       rptbuff: reportBuffer = reportBuffer.reportBuffer()
       if node is None:
          rptbuff.extend(bytearray(f"{args}#ModbusNodeNotFound".encode()))
-         rptbuff.set_error(0x00)
+         rptbuff.set_error(radioErrors.REPORT_ERROR)
       else:
          rptbuff.extend(node.report())
-         rptbuff.set_error(0x00)
+         rptbuff.set_error(radioErrors.ERROR_OK)
       return rptbuff
 
    def __set_datetime(self, args):
