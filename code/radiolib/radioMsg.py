@@ -163,7 +163,11 @@ class radioMsg(object):
       return vts == radioMsg.MSG_VT and vte == radioMsg.MSG_VT
 
    @staticmethod
-   def is_good_ack(targetNodeID: int, msgID: int, ack: bytearray):
+   def is_good_ack(targetNodeID: int, msgID: int, ack: bytearray) -> bool:
+      if len(ack) == 0:
+         print(f"empty ack: {ack}")
+         return False
+      # -- do --
       nid = ack[5]
       mid: int = struct.unpack(">I", ack[7:11])[0]
       return targetNodeID == nid and msgID == mid
