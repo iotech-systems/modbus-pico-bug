@@ -2,6 +2,7 @@
 import sys, time
 from system.shared import uartinfo
 from system.modbus.memblock import memblock
+from radiolib.radioUtils import radioUtils
 
 
 class rtunode(object):
@@ -46,9 +47,8 @@ class rtunode(object):
    def report(self) -> bytearray:
       rep: bytearray = bytearray()
       # -- set modbus node id to 3 chars --
-      _sid = "03d" % self.modbus_id
-      id = f"@{_sid}"
-      rep.extend(id.encode())
+      _srid = radioUtils.modbus_node_to_atid(self.modbus_id)
+      rep.extend(_srid.encode())
       rep.extend(f"@{self.last_scanned}".encode())
       # -- for each memblock --
       for mb in self.registers:
