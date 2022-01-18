@@ -26,12 +26,10 @@ class rtunodes(object):
       for node in self.arr:
          print(node)
 
-   def get_node(self, nodeid) -> [None, rtunode]:
-      nid = nodeid[1:] if (nodeid[0] == strs.SYMBOL_AT) else nodeid
-      _id = int(nid)
+   def get_node(self, nodeid: int) -> [None, rtunode]:
       for n in self.arr:
          n: rtunode = n
-         if n.modbus_id == _id:
+         if n.modbus_id == nodeid:
             return n
       return None
 

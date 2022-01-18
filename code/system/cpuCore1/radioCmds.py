@@ -8,6 +8,7 @@ from system.shared.strings import strs
 from radiolib import radioMsg, reportBuffer
 from radiolib.radioMsg import msgTypes
 from radiolib.radioMsgLib import radioErrors
+from radiolib.radioUtils import radioUtils
 from system.shared.rtunodes import rtunodes
 from system.shared.rtunode import rtunode
 from system.cpuCore1.cmdSetDatetime import cmdSetDatetime
@@ -22,7 +23,7 @@ class radioCmds(object):
    def execute(self, **kwargs) -> [None, bytearray]:
       try:
          cmd, argbuff = self.msg.get_cmd()
-         print([cmd, argbuff])
+         print(["\n\t[execute]", cmd, argbuff])
          if cmd == msgTypes.READ_NODE_REGS:
             nodes: rtunodes = None
             if strs.KW_NODES in kwargs:
@@ -42,7 +43,8 @@ class radioCmds(object):
    def __get_node_registers(self, args, nodes: rtunodes) -> reportBuffer:
       print(f"\n\t[ __get_node_registers: {args} ]")
       args: str = args.decode(strs.UTF8)
-      node: rtunode = nodes.get_node(args)
+      nodeid = radioUtils.modbus_node_fr_atid(args)
+      node: rtunode = nodes.get_node(nodeid)
       rptbuff: reportBuffer = reportBuffer.reportBuffer()
       if node is None:
          rptbuff.extend(bytearray(f"{args}#ModbusNodeNotFound".encode()))
