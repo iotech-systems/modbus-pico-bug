@@ -45,7 +45,9 @@ class rtunode(object):
 
    def report(self) -> bytearray:
       rep: bytearray = bytearray()
-      id = f"@{self.modbus_node_address}"
+      # -- set modbus node id to 3 chars --
+      _sid = "03d" % self.modbus_id
+      id = f"@{_sid}"
       rep.extend(id.encode())
       rep.extend(f"@{self.last_scanned}".encode())
       # -- for each memblock --

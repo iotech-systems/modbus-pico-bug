@@ -40,6 +40,7 @@ class radioCmds(object):
          print(f"exec excep: {e}")
 
    def __get_node_registers(self, args, nodes: rtunodes) -> reportBuffer:
+      print(f"\n\t[ __get_node_registers: {args} ]")
       args: str = args.decode(strs.UTF8)
       node: rtunode = nodes.get_node(args)
       rptbuff: reportBuffer = reportBuffer.reportBuffer()
