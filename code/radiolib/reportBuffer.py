@@ -5,6 +5,8 @@ class reportBuffer(object):
    def __init__(self):
       self.err: bytearray = bytearray()
       self.barr: bytearray = bytearray()
+      # --
+      self.buff_sz: int = 0
 
    def set_error(self, code: int):
       error = "#%04d#" % code
@@ -18,3 +20,8 @@ class reportBuffer(object):
       barr.extend(self.err)
       barr.extend(self.barr)
       return barr
+
+   def load_from_bytes(self, arr: bytearray):
+      self.buff_sz: int = arr[0]
+      self.err = arr[:6]
+      self.barr = arr[6:]
