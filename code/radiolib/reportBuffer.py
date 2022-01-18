@@ -2,17 +2,18 @@
 
 class reportBuffer(object):
 
+   ERROR_CODE_TMPL = "#%04d#"
+
    def __init__(self):
       self.err: bytearray = bytearray()
       self.barr: bytearray = bytearray()
-      # --
       self.buff_sz: int = 0
 
    def __repr__(self):
       return f"err: {self.err}\nbarr: {self.barr}\nbuff_sz: {self.buff_sz}"
 
    def set_error(self, code: int):
-      error = "#%04d#" % code
+      error = reportBuffer.ERROR_CODE_TMPL % code
       self.err = bytearray(error.encode())
 
    def extend(self, arr: bytearray):
@@ -35,10 +36,10 @@ class reportBuffer(object):
 
    @property
    def error_msg(self) -> str:
-      return self.barr[9:].decode()
+      b = self.barr[3:].decode()
+      return b
 
    @property
    def modbus_node(self) -> str:
       print(self.barr)
       return self.barr[7:9].decode()
-
