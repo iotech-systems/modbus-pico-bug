@@ -39,5 +39,6 @@ class reportBuffer(object):
 
    @property
    def modbus_node(self) -> str:
+      print(self.barr)
       return self.barr[7:9].decode()
 
