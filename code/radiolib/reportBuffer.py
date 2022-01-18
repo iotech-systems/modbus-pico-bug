@@ -8,6 +8,9 @@ class reportBuffer(object):
       # --
       self.buff_sz: int = 0
 
+   def __repr__(self):
+      return f"err: {self.err}\nbarr: {self.barr}\nbuff_sz: {self.buff_sz}"
+
    def set_error(self, code: int):
       error = "#%04d#" % code
       self.err = bytearray(error.encode())
