@@ -28,3 +28,16 @@ class reportBuffer(object):
       self.buff_sz: int = arr[0]
       self.err = arr[2:8]
       self.barr = arr[8:]
+
+   @property
+   def error_code(self) -> int:
+      return int(self.err.decode().replace("#", "", 2))
+
+   @property
+   def error_msg(self) -> str:
+      return self.barr[11:].decode()
+
+   @property
+   def modbus_node(self) -> str:
+      return self.barr[8:11].decode()
+
