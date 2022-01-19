@@ -38,7 +38,7 @@ class radioCmds(object):
          # -- return --
          return None
       except Exception as e:
-         print(f"exec excep: {e}")
+         print(f"exec e: {e}")
 
    def __get_node_registers(self, args, nodes: rtunodes) -> reportBuffer:
       print(f"\n\t[ __get_node_registers: {args} ]")

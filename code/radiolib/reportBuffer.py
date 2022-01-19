@@ -25,7 +25,7 @@ class reportBuffer(object):
       barr.extend(self.barr)
       return barr
 
-   def load_from_bytes(self, arr: bytearray):
+   def parse_bytes(self, arr: bytearray):
       self.buff_sz: int = arr[0]
       self.err = arr[2:8]
       self.barr = arr[8:]
