@@ -86,7 +86,9 @@ def __run__(msgin: bytearray) -> int:
    ack: bytearray = radio_msg.ack_msg()
    if not radio_msg.is_broadcast():
       __send_barr__(ack)
-   time.sleep_ms(CONFIG.POST_ACK_DELAY_MS)
+      time.sleep_ms(CONFIG.POST_ACK_DELAY_MS)
+   else:
+      print("[ broadcast msg ]")
    # -- will need to assume as time limits here --
    radio_cmds: radioCmds = radioCmds(__GBL__.__UART_RD__, radio_msg)
    rbuff = radio_cmds.execute(nodes=NODES)

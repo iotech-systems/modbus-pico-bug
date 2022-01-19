@@ -1,5 +1,4 @@
 
-import time
 from machine import RTC
 from system.config import CONFIG
 from system.shared.strings import strs
@@ -16,7 +15,7 @@ class cmdSetDatetime(object):
       tz = self.args[-3:].decode(strs.UTF8).upper()
       if tz not in CONFIG.TZs:
          print(strs.BAD_TZ)
-      CONFIG.SYS_TZ = tz
+      self.__write_tz__(tz)
       y, mo, dd = int(d[:4].decode(strs.UTF8)), \
          int(d[4:6].decode(strs.UTF8)), int(d[6:8].decode(strs.UTF8))
       h, mn, sc = int(t[:2].decode(strs.UTF8)), \
@@ -25,6 +24,19 @@ class cmdSetDatetime(object):
       tpl = (y, mo, dd, dow, h, mn, sc, subsec)
       rtc: RTC = RTC()
       rtc.datetime(tpl)
+
+   def __write_tz__(self, tz: str):
+      with open(strs.TZFile, "r") as f:
+         ln = f.read()
+      ln = ln.strip()
+      if tz != ln:
+         with open(strs.TZFile, "w") as f:
+            f.write(tz)
+
+   def __read_tz__(self) -> str:
+      with open(strs.TZFile, "r") as f:
+         ln = f.read()
+      return ln.strip()
 
 
 # -- tests --

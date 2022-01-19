@@ -18,3 +18,4 @@ class strs:
    SYMBOL_AT = "@"
    KW_NODES = "nodes"
    UTF8 = "utf-8"
+   TZFile = "/timezone"
