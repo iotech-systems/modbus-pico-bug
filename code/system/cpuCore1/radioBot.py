@@ -84,7 +84,8 @@ def __run__(msgin: bytearray) -> int:
       return 0
    # -- send back ack msg --
    ack: bytearray = radio_msg.ack_msg()
-   __send_barr__(ack)
+   if not radio_msg.is_broadcast():
+      __send_barr__(ack)
    time.sleep_ms(CONFIG.POST_ACK_DELAY_MS)
    # -- will need to assume as time limits here --
    radio_cmds: radioCmds = radioCmds(__GBL__.__UART_RD__, radio_msg)

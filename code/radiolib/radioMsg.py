@@ -260,6 +260,9 @@ class radioMsg(object):
       arr = radioMsg.new_msg(self.fr_id, self.to_id, self.msg_id, self.msg_tp, barr)
       return arr
 
+   def is_broadcast(self):
+      return self.to_id == 0xff
+
    def __test_vts__(self, buff: bytearray):
       vts = buff[:1]
       vte = buff[-1:]
