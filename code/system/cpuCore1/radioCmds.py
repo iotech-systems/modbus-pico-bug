@@ -23,7 +23,7 @@ class radioCmds(object):
    def execute(self, **kwargs) -> [None, bytearray]:
       try:
          cmd, argbuff = self.msg.get_cmd()
-         print(["\n\t[execute]", cmd, argbuff])
+         print(["~ cmd execute ~", cmd, argbuff])
          if cmd == msgTypes.READ_NODE_REGS:
             nodes: rtunodes = None
             if strs.KW_NODES in kwargs:

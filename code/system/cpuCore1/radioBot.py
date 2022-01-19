@@ -59,18 +59,22 @@ async def radioBot(**kwargs):
 
 def __run__(msgin: bytearray) -> int:
    # -- run --
-   print(f"\n\t[ MSGIN: {msgin} ]\n")
+   print(f"\t[ MSGIN: {msgin} ]")
    # -- is ping is so do pong and return --
    if radioMsg.is_ping(msgin):
       if radioMsg.is_ping_for_this_node(msgin, CONFIG.radioID):
          pong = radioMsg.pong_msg(msgin)
          __send_barr__(pong)
          return 0
+      else:
+         print("\t-- PinNotForThisNode --")
+         return 0
    # -- run --
    radio_msg: radioMsg = radioMsg(msgin)
    if not radio_msg.is_valid_head_tail():
       return 0
    if not radio_msg.is_for_this_node(CONFIG.radioID):
+      print("\t-- NotForThisNode --")
       return 0
    # -- msg is for this node --
    if not radio_msg.unpack():
