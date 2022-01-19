@@ -34,6 +34,18 @@ class reportBuffer(object):
       return self.buff_sz
 
    @property
+   def node_id(self):
+      return self.barr[:4]
+
+   @property
+   def node_dts(self):
+      return self.barr[5:20]
+
+   @property
+   def node_data(self):
+      return self.barr[21:]
+
+   @property
    def error_code(self) -> int:
       return int(self.err.decode().replace("#", "", 2))
 
