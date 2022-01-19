@@ -111,14 +111,13 @@ def __send_str__(buff: str):
 
 
 def __send_barr__(barr: bytearray):
+   print(f"\n\t-> sending: {barr}")
    cnt = __GBL__.__UART_RD__.write(barr)
    write_delay = (len(barr) * CHARACTER_DELAY)
    print(f"\tbytes sent: {cnt} | write_delay: {write_delay}")
    time.sleep_ms(write_delay)
 
 
-"""      
-"""
 def __read_from_uart__(CHAR_DELAY) -> bytearray:
    buff: bytearray = bytearray()
    while __GBL__.__UART_RD__.any():
