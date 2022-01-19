@@ -3,6 +3,7 @@ import sys, time
 from system.shared import uartinfo
 from system.modbus.memblock import memblock
 from radiolib.radioUtils import radioUtils
+from system.config import CONFIG
 
 
 class rtunode(object):
@@ -42,7 +43,8 @@ class rtunode(object):
 
    def update_last_scanned(self):
       y, mo, d, h, mn, s, _, _ = time.localtime()
-      self.last_scanned = (f"%s%02d%02dT%02d%02d%02d" % (y, mo, d, h, mn, s))
+      tz = CONFIG.SYS_TZ
+      self.last_scanned = (f"%s%02d%02dT%02d%02d%02d%s" % (y, mo, d, h, mn, s, tz))
 
    def report(self) -> bytearray:
       rep: bytearray = bytearray()

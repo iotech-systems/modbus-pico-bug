@@ -104,10 +104,6 @@ def __send_all_registers__():
          __send_str__(reg.dump())
 
 
-def __is_msg_in_tx_buffer__():
-   pass
-
-
 def __send_str__(buff: str):
    bs = bytearray(f"{buff}\n")
    cnt = __GBL__.__UART_RD__.write(bs)

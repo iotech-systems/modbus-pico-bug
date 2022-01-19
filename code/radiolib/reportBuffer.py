@@ -39,11 +39,11 @@ class reportBuffer(object):
 
    @property
    def node_dts(self):
-      return self.barr[5:20]
+      return self.barr[5:23]
 
    @property
    def node_data(self):
-      return self.barr[21:]
+      return self.barr[24:]
 
    @property
    def error_code(self) -> int:
