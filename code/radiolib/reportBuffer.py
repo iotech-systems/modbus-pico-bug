@@ -57,3 +57,8 @@ class reportBuffer(object):
    @property
    def modbus_node_atid(self) -> str:
       return self.barr[0:4].decode()
+
+   @property
+   def modbus_node_id(self) -> int:
+      t = self.barr[1:4].decode()
+      return int(t)
