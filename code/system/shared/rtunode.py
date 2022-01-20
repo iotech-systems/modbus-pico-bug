@@ -8,7 +8,7 @@ from system.shared.strings import strs
 
 class rtunode(object):
 
-   RS: chr = 0x1e
+   RS: chr = ';'
 
    def __init__(self, devString: str, conf):
       self.devString = devString
